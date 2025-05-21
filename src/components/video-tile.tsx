@@ -27,8 +27,13 @@ export default function VideoTile({
   className
 }: VideoTileProps) {
   return (
-    <div className={cn('rounded-lg overflow-hidden transition-all duration-300 flex flex-col', className)}>
-      <div className="relative aspect-video bg-gray-900 h-full w-full">
+    <div
+      className={cn(
+        'rounded-lg overflow-hidden transition-all duration-300 bg-gray-700 flex items-center justify-center flex-col',
+        className
+      )}
+    >
+      <div className="relative aspect-video h-full w-full">
         <video
           ref={(el) => {
             if (el) el.srcObject = stream
@@ -36,7 +41,7 @@ export default function VideoTile({
           autoPlay
           playsInline
           muted={isLocal || isAudioMuted}
-          className={cn('w-full h-full  rounded-t-lg', isVideoMuted && 'absolute')}
+          className={cn('object-cover h-full w-full rounded-t-lg', isVideoMuted && 'absolute')}
         />
 
         {isVideoMuted && (

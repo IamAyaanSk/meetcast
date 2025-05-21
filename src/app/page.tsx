@@ -5,8 +5,8 @@ import { socket } from '@/socket'
 import { Device } from 'mediasoup-client'
 import { Consumer, MediaKind, Producer, RtpCapabilities, Transport } from 'mediasoup-client/types'
 import VideoTile from '@/components/video-tile'
-import { getGridClass } from '@/lib/utils'
 import { MEDIASOUP_VIDEO_PRODUCER_OPTIONS } from '@/constants/global'
+import { getGridClass } from '@/lib/utils'
 
 // TODO: Do some more optimizations
 
@@ -34,7 +34,10 @@ export default function Home() {
       return
     }
 
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' },
+      audio: true
+    })
     setLocalStream(stream)
 
     const videoTrack = stream.getVideoTracks()[0]
@@ -402,21 +405,25 @@ export default function Home() {
   const remoteStreamKeys = Object.keys(remoteStreams)
 
   return (
-    <main className="p-4 md:p-6 max-w-7xl mx-auto h-[90vh]">
-      {localStream && (
-        <div className={`h-full grid gap-4 ${getGridClass(remoteStreamKeys.length)}`}>
-          <VideoTile
-            isLocal={true}
-            name="You"
-            stream={localStream}
-            isAudioMuted={isMuted}
-            isVideoMuted={isCameraOff}
-            pauseMedia={pauseMedia}
-            resumeMedia={resumeMedia}
-            className="border-2 border-blue-500"
-          />
-
+    <main className="h-[90vh] flex items-center justify-center">
+      <div
+        className={`max-w-screen-lg m-auto p-3 h-[78vh] md:p-5 grid ${getGridClass(
+          remoteStreamKeys.length
+        )} gap-4 overflow-hidden bg-zinc-950 rounded-lg border border-zinc-800`}
+      >
+        {localStream && (
           <>
+            <VideoTile
+              isLocal={true}
+              name="You"
+              stream={localStream}
+              isAudioMuted={isMuted}
+              isVideoMuted={isCameraOff}
+              pauseMedia={pauseMedia}
+              resumeMedia={resumeMedia}
+              className="border-2 border-blue-500"
+            />
+
             {remoteStreamKeys.map((remoteId) => (
               <VideoTile
                 key={remoteId}
@@ -429,8 +436,8 @@ export default function Home() {
               />
             ))}
           </>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   )
 }
