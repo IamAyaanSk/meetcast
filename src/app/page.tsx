@@ -38,7 +38,6 @@ export default function Home() {
       video: { width: { ideal: 1920 }, height: { ideal: 1080 }, facingMode: 'user' },
       audio: true
     })
-    setLocalStream(stream)
 
     const videoTrack = stream.getVideoTracks()[0]
     const audioTrack = stream.getAudioTracks()[0]
@@ -56,6 +55,8 @@ export default function Home() {
 
       audioProducer.current.on('trackended', () => console.log('audio track ended'))
       audioProducer.current.on('transportclose', () => console.log('audio transport closed'))
+
+      setLocalStream(stream)
 
       console.log('Producers created:', {
         video: videoProducer.current.id,
@@ -406,38 +407,36 @@ export default function Home() {
 
   return (
     <main className="h-[90vh] flex items-center justify-center">
-      <div
-        className={`max-w-screen-lg m-auto p-3 h-[78vh] md:p-5 grid ${getGridClass(
-          remoteStreamKeys.length
-        )} gap-4 overflow-hidden bg-zinc-950 rounded-lg border border-zinc-800`}
-      >
-        {localStream && (
-          <>
-            <VideoTile
-              isLocal={true}
-              name="You"
-              stream={localStream}
-              isAudioMuted={isMuted}
-              isVideoMuted={isCameraOff}
-              pauseMedia={pauseMedia}
-              resumeMedia={resumeMedia}
-              className="border-2 border-blue-500"
-            />
+      {localStream && (
+        <div
+          className={`max-w-screen-lg m-auto p-3 h-[78vh] md:p-5 grid ${getGridClass(
+            remoteStreamKeys.length
+          )} gap-4 overflow-hidden bg-zinc-950 rounded-lg border border-zinc-800`}
+        >
+          <VideoTile
+            isLocal={true}
+            name="You"
+            stream={localStream}
+            isAudioMuted={isMuted}
+            isVideoMuted={isCameraOff}
+            pauseMedia={pauseMedia}
+            resumeMedia={resumeMedia}
+            className="border-2 border-blue-500"
+          />
 
-            {remoteStreamKeys.map((remoteId) => (
-              <VideoTile
-                key={remoteId}
-                isLocal={false}
-                name={remoteId}
-                stream={remoteStreams[remoteId]}
-                isAudioMuted={!remoteStreams[remoteId].getAudioTracks()[0]?.enabled}
-                isVideoMuted={!remoteStreams[remoteId].getVideoTracks()[0]?.enabled}
-                className="animate-fadeIn bg-gray-800 border border-gray-700 hover:border-gray-600"
-              />
-            ))}
-          </>
-        )}
-      </div>
+          {remoteStreamKeys.map((remoteId) => (
+            <VideoTile
+              key={remoteId}
+              isLocal={false}
+              name={remoteId}
+              stream={remoteStreams[remoteId]}
+              isAudioMuted={!remoteStreams[remoteId].getAudioTracks()[0]?.enabled}
+              isVideoMuted={!remoteStreams[remoteId].getVideoTracks()[0]?.enabled}
+              className="animate-fadeIn bg-gray-800 border border-gray-700 hover:border-gray-600"
+            />
+          ))}
+        </div>
+      )}
     </main>
   )
 }
