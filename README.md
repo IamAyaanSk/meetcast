@@ -1,6 +1,6 @@
 ## MeetCast
 
-Meet cast allows you to join a call ( supports audio and video interactions ) and makes the live hls stream of your ongoing call available. 
+MeetCast allows you to join a call ( supports audio and video interactions ) and makes the live hls stream of your ongoing call available. 
 This is the frontend part that it is integrated with the meetcast-server ( Mediasoup based SFU server ) and meetcast-recorder ( Express server which converts stream to hls and serve to frontend ). 
 
 ### MeetCast demo 
@@ -62,7 +62,7 @@ The watch page plays the hls stream received from the meetcast-recorder server u
    `pnpm install`
 3. Set env variables
    Refer the `.env.example` file for setup.
-4. Configure the recorder and SFU server too ( check readme pf specific repositories for more information )
+4. Configure the recorder and SFU server too ( check readme for specific repositories for more information )
 5. To start the serrver in dev mode
    `pnpm dev`
 6. To start in prod mode
