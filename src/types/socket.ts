@@ -2,7 +2,7 @@ import { DtlsParameters, MediaKind, RtpCapabilities, RtpParameters } from 'media
 import { TCreateWebRtcTransport, TProduceMedia } from '@/types/common'
 
 interface ServerToClientEvents {
-  producers: (params: { producerSocketId: string; paused: boolean }[]) => void
+  producers: (params: { producerSocketId: string }[]) => void
   participantConnected: (socketId: string) => void
   participantDisconnected: (socketId: string) => void
   recorderStatus: (status: { isRecording: boolean }) => void
@@ -25,7 +25,9 @@ interface ClientToServerEvents {
 
   consumeMedia: (
     params: { producerSocketId: string; rtpCapabilities: RtpCapabilities },
-    callback: (params: { id: string; kind: MediaKind; producerId: string; rtpParameters: RtpParameters }[]) => void
+    callback: (
+      params: { id: string; kind: MediaKind; producerId: string; rtpParameters: RtpParameters; paused: boolean }[]
+    ) => void
   ) => void
 
   getRecorderStatus: () => void

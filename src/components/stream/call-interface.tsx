@@ -78,15 +78,7 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
   }, [])
 
   const createConsumer = useCallback(
-    async ({
-      producerSocketId,
-      rtpCapabilities,
-      pauseConsumer = false
-    }: {
-      producerSocketId: string
-      rtpCapabilities: RtpCapabilities
-      pauseConsumer?: boolean
-    }) => {
+    async ({ producerSocketId, rtpCapabilities }: { producerSocketId: string; rtpCapabilities: RtpCapabilities }) => {
       return new Promise((resolve, reject) => {
         socket.emit('consumeMedia', { producerSocketId, rtpCapabilities }, async (props) => {
           if (!consumerTransport.current) {
@@ -95,7 +87,7 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
           }
 
           try {
-            for (const { id, kind, producerId, rtpParameters } of props) {
+            for (const { id, kind, producerId, rtpParameters, paused } of props) {
               const consumer = await consumerTransport.current.consume({
                 id,
                 producerId,
@@ -104,7 +96,7 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
               })
 
               // Pause the consumer if needed
-              if (pauseConsumer) {
+              if (paused) {
                 consumer.pause()
                 console.log(`Consumer ${kind} paused by default`)
               }
@@ -257,8 +249,8 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
       const rtpCapabilities = device.current?.rtpCapabilities
       if (!rtpCapabilities) return
 
-      for (const { producerSocketId, paused } of producers) {
-        await createConsumer({ producerSocketId, rtpCapabilities, pauseConsumer: paused })
+      for (const { producerSocketId } of producers) {
+        await createConsumer({ producerSocketId, rtpCapabilities })
       }
     })
 

@@ -54,20 +54,18 @@ export default function VideoTile({
 
         <div className="absolute bottom-2 left-2 bg-black/60 px-2 py-1 rounded text-sm">{name}</div>
 
-        {!isLocal && (
-          <div className="absolute top-2 right-2 flex gap-1">
-            {isAudioMuted && (
-              <div className="bg-black/60 p-1 rounded-full">
-                <MicOff className="h-4 w-4 text-red-400" />
-              </div>
-            )}
-            {isVideoMuted && (
-              <div className="bg-black/60 p-1 rounded-full">
-                <VideoOff className="h-4 w-4 text-red-400" />
-              </div>
-            )}
-          </div>
-        )}
+        <div className="absolute top-2 right-2 flex gap-1">
+          {isAudioMuted && (
+            <div className="bg-black/60 p-1 rounded-full">
+              <MicOff className="h-4 w-4 text-red-400" />
+            </div>
+          )}
+          {isVideoMuted && (
+            <div className="bg-black/60 p-1 rounded-full">
+              <VideoOff className="h-4 w-4 text-red-400" />
+            </div>
+          )}
+        </div>
 
         {isLocal && pauseMedia && resumeMedia && (
           <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black/30">
