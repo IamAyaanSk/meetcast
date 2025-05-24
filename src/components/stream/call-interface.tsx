@@ -466,12 +466,14 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
             className="border-2 border-blue-500"
           />
 
-          <a
-            href="/"
-            className="text-white opacity-70 hover:opacity-100 transition-colors hover:cursor-pointer p-2 rounded-full bg-red-600 absolute bottom-2 left-[48%] z-50"
-          >
-            <MdCallEnd size={30} />
-          </a>
+          {!isRecorder && (
+            <a
+              href="/"
+              className="text-white opacity-70 hover:opacity-100 transition-colors hover:cursor-pointer p-2 rounded-full bg-red-600 absolute bottom-2 left-[48%] z-50"
+            >
+              <MdCallEnd size={30} />
+            </a>
+          )}
 
           {remoteStreamKeys.map((remoteId) => (
             <VideoTile
