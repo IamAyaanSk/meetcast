@@ -8,6 +8,7 @@ import VideoTile from '@/components/stream/video-tile'
 import { MEDIASOUP_VIDEO_PRODUCER_OPTIONS } from '@/constants/global'
 import { getGridClass } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { MdCallEnd } from 'react-icons/md'
 
 type TCallInterfaceProps = {
   isRecorder?: boolean
@@ -446,7 +447,7 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
 
       {localStream && !isRecorder && (
         <div
-          className={`max-w-screen-lg m-auto p-4 h-[80svh] md:p-6 grid ${getGridClass(
+          className={`relative max-w-screen-lg m-auto p-4 h-[80svh] md:p-6 grid ${getGridClass(
             remoteStreamKeys.length
           )} gap-6 overflow-hidden bg-zinc-950 rounded-lg border border-cyan-800 relative`}
         >
@@ -464,6 +465,13 @@ export function CallInterface({ isRecorder }: TCallInterfaceProps) {
             resumeMedia={resumeMedia}
             className="border-2 border-blue-500"
           />
+
+          <a
+            href="/"
+            className="text-white opacity-70 hover:opacity-100 transition-colors hover:cursor-pointer p-2 rounded-full bg-red-600 absolute bottom-2 left-[48%] z-50"
+          >
+            <MdCallEnd size={30} />
+          </a>
 
           {remoteStreamKeys.map((remoteId) => (
             <VideoTile

@@ -41,7 +41,7 @@ export default function VideoTile({
           autoPlay
           playsInline
           muted={isLocal || isAudioMuted}
-          className={cn('object-cover h-full w-full rounded-t-lg', isVideoMuted && 'absolute')}
+          className={cn('object-cover h-full w-full rounded-t-lg')}
         />
 
         {isVideoMuted && (
