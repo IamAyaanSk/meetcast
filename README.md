@@ -11,6 +11,11 @@ This is the frontend part that it is integrated with the meetcast-server ( Media
 <img width="500" alt="Watch Page" src="https://github.com/user-attachments/assets/d9df95ca-cb10-4a4f-aead-db2e555bc77d" />
 <img width="500" alt="Watch page no stream" src="https://github.com/user-attachments/assets/03a6a023-90f2-4140-80d4-519cfdc8ed1d" />
 
+[Watch a demo on loom.](https://www.loom.com/share/311abdc0dcd44a759e9861168b8ce7ad?sid=6ebd9d1b-efd8-4509-b28b-9a964333b912) 
+
+Features added after this recording:
+- End call button so that client can easily disconnect from call.
+
 ### Features 
 
 - Intutive meet interface allowing users to control self and view participants streams.
