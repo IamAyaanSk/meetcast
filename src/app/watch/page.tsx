@@ -1,14 +1,28 @@
+'use client'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import VideoPlayer from '@/components/watch/video-player'
-import { VideoIcon } from 'lucide-react'
+import { Info, VideoIcon } from 'lucide-react'
 import { WaitingState } from '@/components/watch/waiting-state'
+import { RECORDER_URL } from '@/constants/global'
+import { useEffect, useState } from 'react'
+import { socket } from '@/socket'
 
 export default function WatchPage() {
-  // TODO: This will be played when we get a socket response about the live hls playback availability
-  // The url would also come from the socket response
-  const streamUrl = 'http://localhost:8080/stream/stream.m3u8'
-  // const streamUrl = null
+  const [streamUrl, setStreamUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    socket.emit('getRecorderStatus')
+
+    socket.on('recorderStatus', ({ isRecording }) =>
+      isRecording ? setStreamUrl(`${RECORDER_URL}/stream/stream.m3u8`) : setStreamUrl(null)
+    )
+
+    return () => {
+      socket.off('recorderStatus')
+    }
+  }, [])
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 h-[100svh] overflow-hidden flex flex-col justify-between">
@@ -30,6 +44,12 @@ export default function WatchPage() {
             {streamUrl ? <VideoPlayer streamUrl={streamUrl} /> : <WaitingState />}
           </CardContent>
         </Card>
+
+        {streamUrl && (
+          <Badge className="absolute bottom-8 right-10 text-yellow-600 font-semibold px-3 py-1 rounded-full text-xs">
+            <Info /> Please refresh the page if stream not started automatically
+          </Badge>
+        )}
       </main>
 
       <footer className="mt-6 mb-2 text-center text-gray-400 text-sm">

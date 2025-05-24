@@ -5,6 +5,7 @@ interface ServerToClientEvents {
   producers: (params: { producerSocketId: string; paused: boolean }[]) => void
   participantConnected: (socketId: string) => void
   participantDisconnected: (socketId: string) => void
+  recorderStatus: (status: { isRecording: boolean }) => void
 
   producerPaused: (params: { producerSocketId: string; kind: MediaKind }) => void
   producerResumed: (params: { producerSocketId: string; kind: MediaKind }) => void
@@ -26,6 +27,8 @@ interface ClientToServerEvents {
     params: { producerSocketId: string; rtpCapabilities: RtpCapabilities },
     callback: (params: { id: string; kind: MediaKind; producerId: string; rtpParameters: RtpParameters }[]) => void
   ) => void
+
+  getRecorderStatus: () => void
 
   resumeConsumer: (params: { consumerId: string }) => void
 
