@@ -1,5 +1,6 @@
 ## MeetCast
 
+
 MeetCast allows you to join a call ( supports audio and video interactions ) and makes the live hls stream of your ongoing call available. 
 This is the frontend part that it is integrated with the meetcast-server ( Mediasoup based SFU server ) and meetcast-recorder ( Express server which converts stream to hls and serve to frontend ). 
 
@@ -59,19 +60,25 @@ The watch page plays the hls stream received from the meetcast-recorder server u
 
 1. Clone this repository.
 2. Install dependencies
-   `pnpm install`
-3. Set env variables
+   ```bash
+   pnpm install
+   ```
+4. Set env variables
    Refer the `.env.example` file for setup.
-4. Configure the recorder and SFU server too ( check readme for specific repositories for more information )
-5. To start the serrver in dev mode
-   `pnpm dev`
-6. To start in prod mode
-   `pnpm build && pnpm start`
+5. Configure the recorder and SFU server too ( check readme for specific repositories for more information )
+6. To start the serrver in dev mode
+   ```bash
+   pnpm dev
+   ```
+8. To start in prod mode
+   ```bash
+   pnpm build && pnpm start
+   ```
 
 ### Roadmap 
 It was a really awesome project to build. Handling various cases, learning about WebRtc ( SFU architecture mainly ), Mediasoup, signalling mechanisem, ffmpeg, hls and so much more. Here is a basic overview about how I started and advanced to build MeetCast. 
 
-1. Gather information about WebRtc, what was it, why it is used an overview of how it is used.
+1. Gather information about WebRtc, what was it, why it is used an overview of how it is used. 
 2. Learned about SFU architecture for efficient WebRtc apps.
 3. Got a grasp about how to setup the connection and start consuming and producing using Mediasoup.
 4. Coded the whole `/stream` path which allowed multiple users to join to the call.
