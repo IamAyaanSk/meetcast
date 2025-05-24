@@ -17,9 +17,8 @@ export default function VideoPlayer({ streamUrl }: TVideoPlayerProps) {
     if (Hls.isSupported()) {
       const hls = new Hls({
         liveSyncDurationCount: 3,
-        maxBufferLength: 10,
-        enableWorker: true,
-        lowLatencyMode: true
+        maxBufferLength: 15,
+        enableWorker: true
       })
 
       hls.loadSource(streamUrl)
