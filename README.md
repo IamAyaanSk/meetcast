@@ -63,14 +63,14 @@ The watch page plays the hls stream received from the meetcast-recorder server u
    ```bash
    pnpm install
    ```
-4. Set env variables
+3. Set env variables
    Refer the `.env.example` file for setup.
-5. Configure the recorder and SFU server too ( check readme for specific repositories for more information )
-6. To start the serrver in dev mode
+4. Configure the recorder and SFU server too ( check readme for specific repositories for more information )
+5. To start the serrver in dev env
    ```bash
    pnpm dev
    ```
-8. To start in prod mode
+6. To start in prod env
    ```bash
    pnpm build && pnpm start
    ```
