@@ -91,7 +91,7 @@ It was a really awesome project to build. Handling various cases, learning about
    - Use server side processing by consuming plain RTP streams from my Mediasoup server.
    - Use an actual browser instance to create a special call participant which records it.
    I decided to go ith the later option due to the following disadvantages in the first one:
-      - Mixing multiple streams and getting a matching layout was too complex and would shift me towards the MCU architecture.
+      - Mixing multiple streams was a pain and most importantly it would not give me the actual layout of the call.
       - Although if I went this way, streaming the actual layout of the call won't seemed feasible to me.
    Now the second option, seemed to be more feasible for my cause. I created the recorder server which joins the SFU with socket and starts and ends recording as commanded. ( It could    be also scalble if we assign a single room with such a recorder docker container ).
 6. Now I created the recorder server and piped the stream to ffmpeg to generate the hls live stream.
