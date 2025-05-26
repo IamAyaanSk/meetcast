@@ -35,12 +35,19 @@ export default function VideoPlayer({ streamUrl }: TVideoPlayerProps) {
       }
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       // Native HLS support (Safari)
-      video.src = streamUrl
-      video.addEventListener('loadedmetadata', () => {
+
+      const playVideo = () => {
         video.play().catch((error) => {
           console.log('Autoplay prevented:', error)
         })
-      })
+      }
+
+      video.src = streamUrl
+      video.addEventListener('loadedmetadata', playVideo)
+
+      return () => {
+        video.removeEventListener('loadedmetadata', playVideo)
+      }
     }
   }, [streamUrl])
 

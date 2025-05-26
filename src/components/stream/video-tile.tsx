@@ -4,6 +4,7 @@ import { Mic, MicOff, Video, VideoOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { MediaKind } from 'mediasoup-client/types'
+import { useEffect, useRef } from 'react'
 
 interface VideoTileProps {
   isLocal: boolean
@@ -26,6 +27,14 @@ export default function VideoTile({
   resumeMedia,
   className
 }: VideoTileProps) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.srcObject = stream
+  }, [stream])
+
   return (
     <div
       className={cn(
@@ -35,13 +44,11 @@ export default function VideoTile({
     >
       <div className="relative aspect-video h-full w-full">
         <video
-          ref={(el) => {
-            if (el) el.srcObject = stream
-          }}
+          ref={videoRef}
           autoPlay
           playsInline
           muted={isLocal || isAudioMuted}
-          className={cn('object-cover h-full w-full rounded-t-lg')}
+          className="object-cover h-full w-full rounded-t-lg"
         />
 
         {isVideoMuted && (
